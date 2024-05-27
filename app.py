@@ -266,17 +266,19 @@ def generate():
         flag = True
 
         img_bytes = None
-        if model == "stable_diffusion":
-            img_bytes, flag = diffusion_image(generated_text)
-        elif model == "lora":
-            img_bytes, flag = lora_image(generated_text)
-        elif model == "lexica":
-            img_bytes, flag = midjourney_image(generated_text)
-        elif model == "midjourney":
-            img_bytes, flag = lexica_image(generated_text)
-        else:
-            img_bytes, flag = diffusion_image(generated_text)
-
+        # if model == "stable_diffusion":
+        #     img_bytes, flag = diffusion_image(generated_text)
+        # elif model == "lora":
+        #     img_bytes, flag = lora_image(generated_text)
+        # elif model == "lexica":
+        #     img_bytes, flag = midjourney_image(generated_text)
+        # elif model == "midjourney":
+        #     img_bytes, flag = lexica_image(generated_text)
+        # else:
+        #     img_bytes, flag = diffusion_image(generated_text)
+        
+        img_bytes, flag = ImageGenerator().draw(model, generated_text)
+        
         # print(img_stream)
         print(flag)
         img_stream = ""
@@ -307,6 +309,6 @@ def generate():
 if __name__ == "__main__":
     # engine = initialize_all()
     # app.run(host="0.0.0.0", port=8080)
-    # app.run(debug=True)
-    server = pywsgi.WSGIServer(("0.0.0.0", 8080), app)
+    app.run(debug=True)
+    # server = pywsgi.WSGIServer(("0.0.0.0", 8080), app)
     server.serve_forever()
